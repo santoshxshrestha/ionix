@@ -29,6 +29,12 @@ export default function Terminal() {
         setIsRunning(true);
         setCommand('');
 
+        if (trimmedCommand.toLowerCase() === 'clear') {
+            setHistory([]);
+            setIsRunning(false);
+            return;
+        }
+
         try {
             const output = await runCommand(trimmedCommand);
             setHistory((prev) => [...prev, { command: trimmedCommand, output }]);
@@ -65,6 +71,7 @@ export default function Terminal() {
                 <form onSubmit={handleCommandSubmit} className="flex items-center space-x-2">
                     <span>user@nextjs:~$</span>
                     <input
+                        ref={inputRef}
                         type="text"
                         value={command}
                         onChange={(e) => setCommand(e.target.value)}
