@@ -7,7 +7,6 @@ export async function POST(request: NextRequest) {
     const output = await runComand(command);
     return new NextResponse(output, { status: 200 });
   } catch (error) {
-    console.log("Error", error);
     return new NextResponse("Error processing the message", {
       status: 400,
     });
